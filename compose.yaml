@@ -1,0 +1,91 @@
+name: bt02-portfolio
+
+services:
+  backend:
+    build:
+      context: ./backend
+    image: ${BACKEND_IMAGE:-bt02-portfolio-backend:local}
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-}
+      PUSHBULLET_TOKEN: ${PUSHBULLET_TOKEN:-}
+      PUSHBULLET_DEVICE_IDEN: ${PUSHBULLET_DEVICE_IDEN:-}
+      MESSAGE_MAX_LENGTH: ${MESSAGE_MAX_LENGTH:-1000}
+      ADMIN_MAX_LENGTH: ${ADMIN_MAX_LENGTH:-180}
+      DATABASE_PATH: /data/portfolio.sqlite3
+    volumes:
+      - portfolio-data:/data
+    expose:
+      - "5000"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:5000/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    read_only: true
+    tmpfs:
+      - /tmp:size=16M,noexec,nosuid
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_PORTFOLIO_NAME: ${PORTFOLIO_NAME:-[YOUR_NAME]}
+        VITE_PORTFOLIO_ROLE: ${PORTFOLIO_ROLE:-[YOUR_ROLE]}
+        VITE_PORTFOLIO_MAJOR: ${PORTFOLIO_MAJOR:-[YOUR_MAJOR]}
+        VITE_PORTFOLIO_EMAIL: ${PORTFOLIO_EMAIL:-}
+        VITE_PORTFOLIO_GITHUB: ${PORTFOLIO_GITHUB:-}
+        VITE_PORTFOLIO_LINKEDIN: ${PORTFOLIO_LINKEDIN:-}
+        VITE_PORTFOLIO_INSTAGRAM: ${PORTFOLIO_INSTAGRAM:-}
+        VITE_PORTFOLIO_FACEBOOK: ${PORTFOLIO_FACEBOOK:-}
+        VITE_PORTFOLIO_LOCATION: ${PORTFOLIO_LOCATION:-}
+        VITE_PORTFOLIO_AVAILABILITY: ${PORTFOLIO_AVAILABILITY:-}
+        VITE_POLL_INTERVAL_MS: ${POLL_INTERVAL_MS:-30000}
+    image: ${FRONTEND_IMAGE:-bt02-portfolio-frontend:local}
+    depends_on:
+      backend:
+        condition: service_healthy
+    ports:
+      - "127.0.0.1:${HTTP_PORT:-8080}:8080"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://127.0.0.1:8080/health || exit 1"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    read_only: true
+    tmpfs:
+      - /tmp:size=16M,noexec,nosuid
+      - /var/cache/nginx:size=16M
+      - /var/run:size=1M
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    profiles:
+      - cloudflare
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN:-}
+    depends_on:
+      frontend:
+        condition: service_healthy
+    restart: unless-stopped
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+volumes:
+  portfolio-data:
