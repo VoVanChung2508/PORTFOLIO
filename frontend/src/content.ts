@@ -4,10 +4,10 @@ export const profile = {
   major: import.meta.env.VITE_PORTFOLIO_MAJOR || 'Kỹ thuật phần mềm',
   email: import.meta.env.VITE_PORTFOLIO_EMAIL || 'vovanchung357@gmail.com',
   github: import.meta.env.VITE_PORTFOLIO_GITHUB || 'https://github.com/VoVanChung2508',
-  linkedin: import.meta.env.VITE_PORTFOLIO_LINKEDIN || 'https://www.linkedin.com/in/vovan-chung',
-  instagram: import.meta.env.VITE_PORTFOLIO_INSTAGRAM || 'https://instagram.com/vanchung.dev',
-  facebook: import.meta.env.VITE_PORTFOLIO_FACEBOOK || 'https://facebook.com/vovanchung2508',
-  location: import.meta.env.VITE_PORTFOLIO_LOCATION || 'Việt Nam',
+  linkedin: import.meta.env.VITE_PORTFOLIO_LINKEDIN || 'https://www.linkedin.com/in/vovan-chung-05a44b255/',
+  instagram: import.meta.env.VITE_PORTFOLIO_INSTAGRAM || 'https://www.instagram.com/chungvv103',
+  facebook: import.meta.env.VITE_PORTFOLIO_FACEBOOK || 'https://www.facebook.com/vo.van.chung.276466/',
+  location: import.meta.env.VITE_PORTFOLIO_LOCATION || 'Đà Nẵng, Việt Nam',
   availability: import.meta.env.VITE_PORTFOLIO_AVAILABILITY || 'Sẵn sàng cho thực tập, dự án cộng đồng và hợp tác phát triển web',
 }
 
@@ -34,28 +34,28 @@ export const projects: {
   github?: string
   demo?: string
 }[] = [
-  {
-    name: 'Portfolio cá nhân',
-    description: 'Trang cá nhân hiện đại để giới thiệu dự án, kỹ năng và các mối liên hệ trong một giao diện trực quan và tối giản.',
-    technologies: ['React', 'TypeScript', 'Vite', 'CSS'],
-    github: 'https://github.com/VoVanChung2508/PORTFOLIO',
-    demo: '#home',
-  },
-  {
-    name: 'Hệ thống quản lý học tập',
-    description: 'Ứng dụng web giúp theo dõi tiến độ học tập, quản lý nhiệm vụ và hỗ trợ cá nhân hóa lộ trình học.',
-    technologies: ['React', 'Node.js', 'SQLite'],
-    github: '#',
-    demo: '#',
-  },
-  {
-    name: 'API thông báo & quản trị banner',
-    description: 'Backend REST API hỗ trợ cập nhật banner và gửi thông báo đến thiết bị qua Pushbullet với kiểm soát bảo mật cơ bản.',
-    technologies: ['Flask', 'Python', 'REST API'],
-    github: '#',
-    demo: '#',
-  },
-]
+    {
+      name: 'Portfolio cá nhân',
+      description: 'Trang cá nhân hiện đại để giới thiệu dự án, kỹ năng và các mối liên hệ trong một giao diện trực quan và tối giản.',
+      technologies: ['React', 'TypeScript', 'Vite', 'CSS'],
+      github: 'https://github.com/VoVanChung2508/PORTFOLIO',
+      demo: '#home',
+    },
+    {
+      name: 'Hệ thống quản lý học tập',
+      description: 'Ứng dụng web giúp theo dõi tiến độ học tập, quản lý nhiệm vụ và hỗ trợ cá nhân hóa lộ trình học.',
+      technologies: ['React', 'Node.js', 'SQLite'],
+      github: '#',
+      demo: '#',
+    },
+    {
+      name: 'API thông báo & quản trị banner',
+      description: 'Backend REST API hỗ trợ cập nhật banner và gửi thông báo đến thiết bị qua Pushbullet với kiểm soát bảo mật cơ bản.',
+      technologies: ['Flask', 'Python', 'REST API'],
+      github: '#',
+      demo: '#',
+    },
+  ]
 
 export const education: {
   school: string
@@ -63,10 +63,10 @@ export const education: {
   period?: string
   details?: string[]
 }[] = [
-  {
-    school: 'Đại học Công nghệ Thông tin',
-    major: 'Công nghệ thông tin',
-    period: '2022 — Hiện tại',
-    details: ['Học tập về lập trình, hệ thống phần mềm và phát triển ứng dụng web.', 'Tích lũy kỹ năng thực tế qua dự án cá nhân và môi trường học tập kỹ thuật.'],
-  },
-]
+    {
+      school: 'Đại học Công nghệ Thông tin',
+      major: 'Công nghệ thông tin',
+      period: '2024 — Hiện tại',
+      details: ['Học tập về lập trình, hệ thống phần mềm và phát triển ứng dụng web.', 'Tích lũy kỹ năng thực tế qua dự án cá nhân và môi trường học tập kỹ thuật.'],
+    },
+  ]
